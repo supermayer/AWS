@@ -369,7 +369,70 @@ S3: Simple Storage Service
         Always use a strong and complex password on root account.
         paying account should be used for billing purposes only.  Do not deploy resources into the paying account.
         enable/disable AWS services using Service Control Policies (SCP) either on OU or on individual accounts
-        
+    Cross account s3 buckets:
+        3 ways to share s3 buckets across accounts.
+            Using bucket policies & IAM (applies across the entire bucket) - programatic access only.
+            Using bucket ACLs and IAM (individual objects) Programatic access only
+            Cross-account IAM roles - programatic and Console access.
+    Cross Region Replicaiton:
+        Versioning must be enabled on boththe source and destination buckets.
+        files in an existing bucket are not replicated automatically     
+        all subsequent updated files will be replicated automatically.
+        delete markers are not replicated
+        deleting individual version or delete markers will not be replicated.
+        understand what cross region replicaiton is at a high level.
+    S3 Transfer Acceleration:
+        Uses cloudfront edge network to accelerate your uploads to S3.  Use a distinct URL to upload directly to a edge location which will
+        then transfer that to S3.  example URL: acloudguru.s3-accelerate.amazonaws.com
+    AWS Data Sync:
+        used to move large amounts of data from on-premises to AWS.
+        used with NFS and SMB compatible file systems.
+        replicaiton can be done hourly daily or weekly.
+        It uses an agent on the host.
+        can be used to replicate EFS to EFS.
+    CloudFront:
+        basically a CDN Network a system of distributed system that delivers webpages and other contents.  It essentially takes a copy from a local server and 
+            sends it to another edge location so that it is closer to the users.
+        Edge Location - The locatin where the content will be cached.  This is separate to an AWS Region/AZ.
+        Origin - This is the origin of all the files that the CDN will distribute.  This can be either an S3 bucket, an EC2 Instance, an Elastic Load Balancer or Route 53.
+        Distribution - This is the name given the CDN which consists of a collection of Edge Locations.
+        Web Distribution - Used for Websites.
+        RTMP - Used for Media Streaming.
+        Edge locations are not just read only.  You can write to them too.
+        Objects are chached for the time to live - TTL 
+        You can clear cached objects, but you will be charged.
+        URLs and Signed Cookies:
+            Use signed URLs/cookies when you want ot secure content so thatonly the people you authorize are able to access it.
+            A signed URL is for individual files.  1 file = 1 URL.
+            A signed cookies is for multiple files.  1 cookie = multiple files.
+            If your origin is EC2 then use CloudFront - If your origin is s3, you would use a S3 signed url.
+    SnowBall:
+        External casing that handles large volumes of data for export / import.
+        Imports to S3 and Exports from S3.
+    Storage Gateway:
+        Files Gateway: NFS for flat files, stored directly on S3
+        Volume Gateway:
+            Stored Volumes - Entire Dataset is stored on site and is asynchronously backed up to S3.
+            Cached Volumes - Entire Dataset is stored on S3 and the most frequently accessed data is cached on site.
+        Gateway Virtual Tape Library:  
+    Athena vs. Macie:
+        Athena allows you to query S3 via SQL.
+        Its serverless, pay per query / per TB scanned.
+        Works directly with data stored in S3.
+        can be Used to query log files, ELB logs, S3 access logs.
+        Generate business reports.
+    Macie: PII Discovery tool (personally identifiable information)
+        Security services that uses machine learining to discover, classify and protect sensitive data.
+        AI to recognize if your S3 ojbects that contain sensitive data. 
+
+
+
+
+
+
+
+
+
 
 
         
