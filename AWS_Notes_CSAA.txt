@@ -290,77 +290,77 @@ S3: Simple Storage Service
                     AWS Key Managment Service.  - KMS
                     Server side encryption with customer provided keys.
                 Client side - encrypt it on our pc and send up to S3.
-    
-    
-    Exam Tips:
-    
-    S3:
-        Remember S3 is Object-based: allows you to upload files.
-        Files can be 0 to 5TB.`
-        Unlimited Storage
-        Files are stored in buckets.
-        Universal name space = unique name globally is needed.
-        creates a DNS name when the bucket is created.  https//bucketname.s3.amazonaws.com (N Virginia) https//bucketname.eu-west-1.amazonaws.com (Europe west)
-        Not sutitable for an operating system on.
-        successful upload gives you a 200 status code.
-        You can turn on MFA delete to protect assets from being deleted.
-        Key Fundamentals:
-            Key: Name of the Object.
-            Value: The data that is made up of a sequence of bytes.
-            Version ID: Important for versioning.
-            MetaData
-            Subresources;
-                access control lists - permissions.
-                Torrent
-        Read after Write consistently for puts.  Can read it immediatley after uploading.
-        Eventual consisitency for overwrite puts and deletes.  Update a file or delete it takes a bit to get the new version.
-        S3 Teired structure above = s3 standard - S3 = IA - S3 one zone IA (RRS) - S3 Intel Tiering - Glacier - Glacier Deep Archive.
-        Read S3 FAQ - S3 comes up a lot on the exam.
-        Storage Tiers: ( from most expensive to least)
-            S3 Standard - Most expensive.
-            S3 - IA 
-            S3 - Intelligent Tiering - Use this one as it will move you objects if they are not used.  Not if you hae a lot monitoring of object.sutitable.
-            S3 - One Zone IA
-            S3 - Glacier
-            S3 - Glacier deep archive.
-        Versioning:
-                Stores all versions of an objects even if you delete.
-                great backup tool
-                once enabled you cannot disable it only suspend.
-                integrates with lifecycle rules.
-                you can use MFA delete with it to add an additional layer of security.
-        Lifecycle Rules:
-            Automates moving your objects between the different storage tiers.
-            Can be used in conjunction with versioning.
-            can be applied to current and past versions.
-        S3 Object Lock:
-            Stores objects using a write once read many model (WORM)
-            Object locks can be individual objets or applied across the bucket as a whole.
-            Object locks have 2 modes: 
-                governance mode (users can't overwrite or delete an object version or alter its lock settings unless they have special permissions.)
-                compliance mode (cannot be deleted by anyone not even root.)
-        S3 Glacier Vault Lock:
-            allows to enforce compliance controls for individual S3 glacier vaults with a vaults lock policy.
-        S3 Performance:
-            S3 Prefixes:  bucketname/subfolder/subfolder2/superbowl.jpg  Prefix is the middle bit - /subfolder/subfolder2/  
-            You get better performances spreading over different prefixes.
-            The more prefixes you have the better the performance.
-            You get 3500 PUT/COPY/POST/DELETE requests per prefix and 5500 GET/HEAD requests per prefix.
-            KMS Encryptions can cause some limits on your performance.  There is a KMS Quota. 5500, 10,000, or 30,000 requests per second with KMS.
-            You cannot request a KMS quota increase.
-            Multipart uploads increase performance.
-                recommended for files over 100MB
-                required for files over 5GB
-                paralleize uploads (this it was it does)
-            Downloads:
-                USes S3 Byte-Range Fetches:
-                basically paralleizes the download as well.
-        S3 Select:
-            Uses SQL to retrieve you can increase your performance by 400%
-            You pull down only a subset of the data you need.
-            get data by rows or columns
-        Glacier Select:
-            Same concept of S3 Select. Run SQL queries directly on Glacier.
+
+
+Exam Tips:
+
+S3:
+    Remember S3 is Object-based: allows you to upload files.
+    Files can be 0 to 5TB.`
+    Unlimited Storage
+    Files are stored in buckets.
+    Universal name space = unique name globally is needed.
+    creates a DNS name when the bucket is created.  https//bucketname.s3.amazonaws.com (N Virginia) https//bucketname.eu-west-1.amazonaws.com (Europe west)
+    Not sutitable for an operating system on.
+    successful upload gives you a 200 status code.
+    You can turn on MFA delete to protect assets from being deleted.
+    Key Fundamentals:
+        Key: Name of the Object.
+        Value: The data that is made up of a sequence of bytes.
+        Version ID: Important for versioning.
+        MetaData
+        Subresources;
+            access control lists - permissions.
+            Torrent
+    Read after Write consistently for puts.  Can read it immediatley after uploading.
+    Eventual consisitency for overwrite puts and deletes.  Update a file or delete it takes a bit to get the new version.
+    S3 Teired structure above = s3 standard - S3 = IA - S3 one zone IA (RRS) - S3 Intel Tiering - Glacier - Glacier Deep Archive.
+    Read S3 FAQ - S3 comes up a lot on the exam.
+    Storage Tiers: ( from most expensive to least)
+        S3 Standard - Most expensive.
+        S3 - IA 
+        S3 - Intelligent Tiering - Use this one as it will move you objects if they are not used.  Not if you hae a lot monitoring of object.sutitable.
+        S3 - One Zone IA
+        S3 - Glacier
+        S3 - Glacier deep archive.
+    Versioning:
+            Stores all versions of an objects even if you delete.
+            great backup tool
+            once enabled you cannot disable it only suspend.
+            integrates with lifecycle rules.
+            you can use MFA delete with it to add an additional layer of security.
+    Lifecycle Rules:
+        Automates moving your objects between the different storage tiers.
+        Can be used in conjunction with versioning.
+        can be applied to current and past versions.
+    S3 Object Lock:
+        Stores objects using a write once read many model (WORM)
+        Object locks can be individual objets or applied across the bucket as a whole.
+        Object locks have 2 modes: 
+            governance mode (users can't overwrite or delete an object version or alter its lock settings unless they have special permissions.)
+            compliance mode (cannot be deleted by anyone not even root.)
+    S3 Glacier Vault Lock:
+        allows to enforce compliance controls for individual S3 glacier vaults with a vaults lock policy.
+    S3 Performance:
+        S3 Prefixes:  bucketname/subfolder/subfolder2/superbowl.jpg  Prefix is the middle bit - /subfolder/subfolder2/  
+        You get better performances spreading over different prefixes.
+        The more prefixes you have the better the performance.
+        You get 3500 PUT/COPY/POST/DELETE requests per prefix and 5500 GET/HEAD requests per prefix.
+        KMS Encryptions can cause some limits on your performance.  There is a KMS Quota. 5500, 10,000, or 30,000 requests per second with KMS.
+        You cannot request a KMS quota increase.
+        Multipart uploads increase performance.
+            recommended for files over 100MB
+            required for files over 5GB
+            paralleize uploads (this it was it does)
+        Downloads:
+            USes S3 Byte-Range Fetches:
+            basically paralleizes the download as well.
+    S3 Select:
+        Uses SQL to retrieve you can increase your performance by 400%
+        You pull down only a subset of the data you need.
+        get data by rows or columns
+    Glacier Select:
+        Same concept of S3 Select. Run SQL queries directly on Glacier.
     AWS Organizations and Consolidated Billing:
         Allows you to consildate multiple accounts into one orgainization.
         Consilidated Billing:
@@ -425,6 +425,39 @@ S3: Simple Storage Service
         Security services that uses machine learining to discover, classify and protect sensitive data.
         AI to recognize if your S3 ojbects that contain sensitive data. 
 
+EC2 - Elastic Cloud Compute - SAA-C02 (Exam Tips)
+    EC2 Instance type - Mnemonic
+        F - For FPGA
+        I - For IOPS
+        G - For Graphics
+        H - High Disk throughput
+        T - Cheap General purpose (think t2 micro)
+        D - For Density
+        R - For RAM
+        M - Main choice for general purpose applies
+        C - For Compute.
+        P - Graphics (think pics)
+        X - Extreme Memory.
+        Z - Extreme Memory AND CPU
+        A - Arm-based workloads
+        U - Bare Metal
+
+        Fight Dr. Mc Pxz Au
+
+    Pricing Types:
+        On Demand = pay a fixed rate by the hour or by the second with no commitment.
+        Reserved = Provides you with a capacity reservation and offers a significant discount. Contract 1 or 3 years.
+        Spot - Bid, has flexible start and end times.
+            Spot -  If amazon terminates it you are not charged for partial hour of usage.  If the user terminates you will be charged for any hour.
+        Dedicated Hosts - typically used when you need to use existing server bound licenses.
+    
+    Termination protection is turned off by default, you must turn it on.
+    On an EBS-backed instance the default action is fo the root EBS is deleted.  The added drives are not deleted by default.
+    EBS root volumes of your default ami's can be encrypted. You can also use 3rd party tools like bit locker. or do it when creating the AMI via the console or API.
+    additional volumes can be encrypted.
+    
+    Security Groups:
+        
 
 
 
