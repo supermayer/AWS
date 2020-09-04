@@ -457,7 +457,88 @@ EC2 - Elastic Cloud Compute - SAA-C02 (Exam Tips)
     additional volumes can be encrypted.
     
     Security Groups:
-        
+        All Inbound traffic is blocked by default.
+        all outbound traffic is allowed.
+        Security group changes take immediatley
+        You can any number of ec2 instances within a security group.
+        you can have multiple security groups attached to EC2 instances.
+        security groups are statefull - you dont have to enable outbound if you have it oubound.
+        you cannot block specific ip addresses you use network access control lists.
+        you can specify allow rules but not deny.
+    EBS: (Elastic Block Store)
+        Think of EBS as a virutal hard disk.  Volumes exist on EBS.
+        Snapshots stored on S3.
+        Snapshots are point in time copies of volumes.
+        Snapshots are incremental.  Only blocks that are changed get updated when you take a second snapshots.
+        First snapshot takes some time.
+        Stop the instance before taking a snapshot as a best practice.  You can do it while it is running.
+        You can create AMI's from snapshots.
+        You can change EBS volumes on the fly, including the storage and type.
+        Volumes will ALWAYS be in the same availability zone as the EC2 Instance.
+        To move your image to another region you can create a snapshot then you can create an AMI then use that image by copying it and then re-launch into another region.
+        You can do the same with the availability zone, just create the snapshot then create an AMI and relaunch.
+        General Purpose SSD - API = gp2
+            Used for most workloads good balance.
+        Provisioned IOPS SSD - API = io1
+            Used for Databases and mission critical apps.
+        Throughput Optimized HDD - API = st1
+            Used for Big Data and Data Warehouses.
+        Cold HDD - API = sc1
+            Good for File servers.
+        EBS Magnetic - API = Standard
+            Workloads that are Infrequently accessed.
+        AMI Types: EBS vs Instance Store
+            You can select your AMI based on:
+                Region
+                Operating System.
+                Architecture
+                Launch Storage for the Root Device
+            Instance Store volumes are somtimes called Ephemeral Storage.
+            Instance store volumes cannot be stopped.  If the underlying host fails, you will lose your data.
+            EBS can be stopped
+            you can reboot both types.
+            by default both root volumes will be deleted on termination.  With EBS volumes you can tell AWS to keep the root device.
+    ENI vs. ENA vs. EFA: 
+        ENI:
+            Elasitc Network Interface - essentially a virtual network card.
+            For basic networking. Perhaps you need a separate management network to your prod network or a separate logging network.
+            In this scenario use Mulitple ENI's for each network.
+        EN:
+            Enhanced Network:
+            For when you need speeds between 10Gbps and 100Gpbs.  anywhere you need reliable high thorughput.
+        EFA: 
+            Elastic Fabric Adaptor
+            For when you need high performance computing (HPC) and machine learning applicaitons or if you need to do an OS by-pass.
+            If you see a scenario question mentioning HPC or ML u want to use EFA.
+    Encrypted Root Device Volumes and Snapshots:
+        Snapshots of encyrpted volumes are encrypted automatically
+        volumes restored from encrypted volumes are also encrypted.
+        you can share snapshots but only if they are unencrypted
+        You can now encrypt when you build.
+        If you want to encrypt a unencrypted volume.  Create snapshot, then copy the snapshot and select the encrypt option. Then make an AMI from that.
+    Spot instances and spot fleets:
+        Spot Instances:
+            You bid on these and when the your high price gets eclipsed then your instances will terminate.
+            Can save you up to 90% of the cost on On-Demand instances.
+            Usefull when you don't need persistent storage.
+            You can block spot intances from terminating by using spot block.
+        Spot Fleet:
+            is a collection of spot instances and optionally on-demand instaces.
+    EC2 Hibernate:
+        A way to stop the instance but retain the memory onto the root volume. Doing a hibernate allows the instance to start up quicker after shut down hibernate.
+        Good for processes/applications that take a long time to start up.
+        No reload of the operating system.
+        Instance RAM must be less than `150gb
+        Instance families include c3, c4, c5, m3, m4, m5, r3, r4, and r5.
+        available for windows, amazon linux 2 AMI, and ubuntu.
+        instances cannot be hibernated for more than 60 days.
+        Available for on-demand instance and reserved instances.
+
+
+
+            
+
+          
 
 
 
