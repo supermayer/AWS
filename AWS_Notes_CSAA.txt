@@ -533,6 +533,42 @@ EC2 - Elastic Cloud Compute - SAA-C02 (Exam Tips)
         available for windows, amazon linux 2 AMI, and ubuntu.
         instances cannot be hibernated for more than 60 days.
         Available for on-demand instance and reserved instances.
+    Cloud Watch:
+        Used for monitoring performance.
+        CloudWatch can monitor most of AWS as well as your appications that run on AWS.
+        It runs at 5 min by default but you can do 1 min with detailed monitoring.
+        CloudWatch alarms can be created and will send notifications and alerts.
+        CloudWatch is all about performance stats. Cloud trail is about auditing.. 
+        You can create dashboards to see what is happening with your AWS environment.
+        Logs, cloudwatch helps you aggregate, monitor and store logs.
+    AWS Command Line:
+        Used to provision resources from command line.
+        you need to set up access i IAM
+        some basic commands can be helpful to know.
+    IAM - Roles
+        Roles are more secure than storing your access key and secret access key on the instance.
+        Roles are easier to manage.
+        Roles can be assigned after its created. With the command line or the console.
+        Roles are universal you can use them any region.    
+    Bootstrap Scripts:
+        Way of automating stuff when your instance first boots.
+        you can create a little script that starts when spun up.  Install httpd move a file to a bucket or create a bucket etc..
+    Instance Metadata:
+        use to get info about the instance, such as public ip etc...
+        the address is 169.254.169.254 - to get a list of commands do curl http://169.254.169.254/latest/meta-data
+        user-data flag will spit out your boot strap script.
+    EFS - Elastic File System.
+        It allows you to grow your file system as you add and remove files. 
+        Great for file servers.
+        Great way to share files between servers.
+        supports nfs4 protocol
+        you only pay for what you use
+        can scale up to petabytes
+        can support thousands of concurrent nfs connections
+        data is stored across multple AZ's within a region.
+        Read after write consistency
+        
+
 
 
 
