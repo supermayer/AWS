@@ -567,7 +567,78 @@ EC2 - Elastic Cloud Compute - SAA-C02 (Exam Tips)
         can support thousands of concurrent nfs connections
         data is stored across multple AZ's within a region.
         Read after write consistency
-        
+    Amazon FSx for Windows and Lustre:
+        Windows File Server
+        Designed for Windows Applications.
+        Supports AD users Access control groups and security policies along with distributed file system DFS name spaces and replications.
+        Its based on SMB, where the EFS is on NFS.
+        If a question comes up about SMB and what file system to use, choose FSX.
+            Lustre:
+                For large workloads, high performance computing.  Big Data. 
+        Exam Tips:
+            EFS:
+                when you need distributed highly resilient storage for Linux instances and Linux-based applications.
+            Amazon FSX for windows:
+                When you need centralized storage for windows apps like sharepoint, MSSQL Server, Workspeaces, IIS Web Server.
+            Amazon FSx for Lustre:
+                when you need high-speed, high capacity distributed storage. This will be for apps that do high performance compute. 
+                FSx for lustre can store data on S3.
+    EC2 Placement Groups:
+        3 types of placement groups:
+            Name must be Unique.
+            Only certian types of instances can be Launched in a placement group (compute Optimized, GPU, Memory Optimized, Storage Optimized)
+            AWS recommends homogenous instances within clustered placement groups.
+            you cant merge placement groups.
+            You can move an existing instance into a placement group. Before you move it, it must be in a stopped state. Right now you can only do this via the CLI or AWS SDK no console.
+            Clustered placement group:
+                Low Network latency high network throughput.  These are close to each other. Same AZ / Same Region.
+                These cannot span multiple availability zones.
+            Spread Placement Groups:
+                Individual Critical EC2 Instances separated on hosts.
+                Can span multiple availability zones. (have to be in same region)
+            Partitioned:
+                Multiple EC2 instances but separated hosts. Good for HDFS, HBase, and Cassandra.
+                Can span multiple availability zones. (have to be in same region)
+    HPC on AWS:
+        High performance Compute:
+            Achieve HPC on AWS through:
+            Data Transfer
+                Move large data into AWS via the following:
+                    Snowball or Snowmobile
+                    AWS Data Sync on S3, EFS, FSx for windows etc..
+                    Direct connect
+
+            Compute and networking:
+                Ec2 instances that are GPU or CPU optimized.
+                EC2 Fleets (spot instances or spot fleets)
+                Placement Groups (cluster placement)
+                Enahanced networking single root I/O virtualization (SR-IOV)
+                Elastic Network Adapters or Intel 82599 Virtual Function (VF) Interface.
+                Elastic Fabric Adapters
+            Storage:
+                Instance attached storage:
+                    EBS - scale up to 64,000 IOPS with Provisioned IOPS (PIOPS)
+                    Instance Storage: Scale to millions of IOPS; low latency.
+                Network Storage:
+                    Amazon S3: distributed object-based storage; not a file system.
+                    Amazon EFS: Scale IOPS based on total size or use provisioned IOPS
+                    Amazon FSx for Lustre: HPC-optimized distributed file system; millions of IOPS, which is also backed by S3.
+            Orchestration and Automation:
+                2 types:
+                    AWS Batch
+                    AWS Parallel Cluster.
+    AWS WAF:
+        WEb Application firewall.
+        AWS WAF is a web application firewall that helps protect your web applications or APIs against common web exploits that may affect availability, compromise security, or consume excessive resources.
+            It gives you ways to block or allow at layer 7.
+            Exam Tips: 
+                You will be asked in various scenarios how you will block a malicious IP address.
+                    Use AWS WAF
+                    Use Network ACLs
+
+
+
+
 
 
 
