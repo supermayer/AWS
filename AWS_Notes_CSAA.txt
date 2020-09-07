@@ -589,7 +589,8 @@ EC2 - Elastic Cloud Compute - SAA-C02 (Exam Tips)
             Only certian types of instances can be Launched in a placement group (compute Optimized, GPU, Memory Optimized, Storage Optimized)
             AWS recommends homogenous instances within clustered placement groups.
             you cant merge placement groups.
-            You can move an existing instance into a placement group. Before you move it, it must be in a stopped state. Right now you can only do this via the CLI or AWS SDK no console.
+            You can move an existing instance into a placement group. Before you move it, it must be in a stopped state. You must create a AMI and launch it in the placement group. 
+                Right now you can only do this via the CLI or AWS SDK no console. 
             Clustered placement group:
                 Low Network latency high network throughput.  These are close to each other. Same AZ / Same Region.
                 These cannot span multiple availability zones.
@@ -607,7 +608,6 @@ EC2 - Elastic Cloud Compute - SAA-C02 (Exam Tips)
                     Snowball or Snowmobile
                     AWS Data Sync on S3, EFS, FSx for windows etc..
                     Direct connect
-
             Compute and networking:
                 Ec2 instances that are GPU or CPU optimized.
                 EC2 Fleets (spot instances or spot fleets)
@@ -635,6 +635,73 @@ EC2 - Elastic Cloud Compute - SAA-C02 (Exam Tips)
                 You will be asked in various scenarios how you will block a malicious IP address.
                     Use AWS WAF
                     Use Network ACLs
+
+Databases:
+    RDS has two key features: (mysql, aurora, sql, postgres, oracle, mariadb ect...)
+        Multi AZ for disaster recovery
+        Read Replicas for performance
+    Non Relational DBs: (Dynamo DB, json / nosql)
+        Collection = Table
+        Document = rows
+        Key Value Pairs = Fields or columns
+    Redshift is the data Warehouse solotions (OLAP)
+        Used for business intelligence or data warehousing
+    Elasticache: (caches certian aspects of the DB to memory)
+        Used to speed up performance, frequent identical queries.
+        Memcached
+        Redis
+    RDS Runs on virtual machines
+    You have no access to those virtual machines.
+    patching of the RDS instance is amazon's responsibility.
+    RDS is NOT serverless. Aurora is the exception to this rule.
+    
+    Backups, Multi-AZ & Read Replicas:
+        Backups:
+            Two different types of backups for RDS:
+                Automated 
+                Database Snapshots
+        Read Replicas:
+            Can be multi AZ
+            used to increase performance.
+            must have backups turned on
+            can be in different regions
+            can be MySQL, PostGres, MariaDB, Oracle, Aurora.
+            Can be promoted to master, this will break the Read Replica.
+        Multi-AZ:
+            Used for Dr
+            You can force a failover from one AZ to another by rebooting the RDS instances.
+        Encryption at rest is supported for MySQL, Oracle, SQL Server, PostGres, MariaDB and Aurora.
+        Encryption is done using the AWS Key Management Service (KMS)
+        Once your RDS instance is encrypted the data stored at rest is encrypted as are automated backups, read replicas and snapshots.    
+    Dynamo DB: (amazons no SQL DB)
+        Stored on SSD
+        spread across 3 geographically distinct data centers.
+        Reads:
+            eventual consistent reads (default)
+                1 second reads - best read performance.
+            strongly consistent reads
+                Less than 1 second reads
+        Advanced Dynamo DB Features: (Review this again)
+            DAX: DynamoDB Accelerator
+
+            Transactions:
+
+            On-Demand Capacity:
+
+            On-Demand Backup and Restore:
+
+            Point in Time Recovery:
+
+            Streams:
+
+            Global Tables
+                Managed Multi-Master, Multi-Region replication
+            
+            Database Migration Service (DMS):
+
+            Security:
+
+
 
 
 
