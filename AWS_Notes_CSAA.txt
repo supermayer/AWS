@@ -650,8 +650,8 @@ Databases:
         Used to speed up performance, frequent identical queries.
         Memcached
         Redis
-    RDS Runs on virtual machines
-    You have no access to those virtual machines.
+    RDS Runs on virtual machines - exam topic
+    You have no access to those virtual machines. - exam topics
     patching of the RDS instance is amazon's responsibility.
     RDS is NOT serverless. Aurora is the exception to this rule.
     
@@ -661,14 +661,14 @@ Databases:
                 Automated 
                 Database Snapshots
         Read Replicas:
-            Can be multi AZ
-            used to increase performance.
+            Can be multi AZ - exam
+            used to increase performance. - exam
             must have backups turned on
             can be in different regions
             can be MySQL, PostGres, MariaDB, Oracle, Aurora.
             Can be promoted to master, this will break the Read Replica.
         Multi-AZ:
-            Used for Dr
+            Used for Dr only
             You can force a failover from one AZ to another by rebooting the RDS instances.
         Encryption at rest is supported for MySQL, Oracle, SQL Server, PostGres, MariaDB and Aurora.
         Encryption is done using the AWS Key Management Service (KMS)
@@ -700,6 +700,47 @@ Databases:
             Database Migration Service (DMS):
 
             Security:
+    Redshift:
+        Redshift is used for business intelligence.
+        ONly available in one AZ
+        backups are enabled by default with a retention of 1 day.
+        MAximum retention is 35 days.
+        Redshift always attempts ot maintain at least 3 copies of your data. Original - Replica on the compute nodes and a backup in S3.
+        redshift can also asynchronously replicate your snampshots to S3 in another region for DR.
+    Aurora:
+        Amazon's RDS DAtabase.
+        Its a MySql / PostGreSQL compatibile.  Its much more reliable, more like open source.
+        5 x better performance than MySQL  / 3x better than postgres.
+        2 copies of your data are contained in each availability zone, with minimum of 3 AZ - 6 copies of your data.
+        you can share aurora snapshots with other AWS accounts.
+        3 types of replicas avialable. Aurora, MySQL, PostgresQL replicas. Automated failover only available with Aurora.
+        Aurora has outomated backups on by default. you can also take snapshots.
+        Use Aurora serverless if you want a simple cost effective options for infrequent, intermittent, or unpredictable workloads.
+    Elasticache:
+        Use Elasticache to increase database and web application performance.
+        It uses Memchached and Redis to cache queries
+        Redis is multi AZ
+        you can do backup sand restores of redis.
+    Database Migration Services (DMS)
+        Cloud service used to migrate relation databases, data warehouses, NoSQL databases, and other types of data stores.
+        You can migrate like for like databases or non like for like (mySQL --> Aurora)
+        The source can be on premises or inside of AWS itself and or another cloud service like AZure.
+        If you do a heterogeneous (non like for like) you need SCT (AWS Schema Conversion Tool)
+    Caching Strategies on AWS:
+        You need to know what services have caching capabilities.
+            CloudFront
+            API Gateway
+            ElastiCache - Memcached and redis
+            Dynamo DB Accelerator or DAX
+        Caching is a balancing act between up to date accurate information and latency.     
+    EMR - Elastic Map reduce
+        Big Data - Start to think about AMR.
+        EMR is used for big data processing
+        consists of a master node, a core node and optionally a task node.
+        by default log data is stored on the master node.
+        Exam Topic: you can configure replication to S3 every 5mi for all log data fromthe master node.  You have to do this when you set it up.
+        
+
 
 
 
