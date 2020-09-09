@@ -1,3 +1,4 @@
+# Lines 1-233 were from the CSAA-01 class.
 
 IAM is universal it does not apply to regions.
 
@@ -739,7 +740,69 @@ Databases:
         consists of a master node, a core node and optionally a task node.
         by default log data is stored on the master node.
         Exam Topic: you can configure replication to S3 every 5mi for all log data fromthe master node.  You have to do this when you set it up.
-        
+
+Advanced IAM:
+    AWS Directory Service:
+        Family of manged services.
+        Connect AWS resources with on premises AD
+        Stand Alone directory in the cloud
+        Use existing corporate credentials.
+        SSO to any domain-joined EC2 instance.
+    AWS Managed Microsoft AD:
+        AD Domain controllers DCs running windows server.
+        Reachable by applications in your VPC.
+        Add more DC's for HA and performance.
+        Exclusive access to DCsExtend existing AD to on-premises using AD Trust.
+        Aws manges:
+            Mulit AZ deployment is taken care of
+            patch monitor and recovery
+            instance rotation
+            snapshot and restor.
+        Customer manages:
+            Users, groups GPO's
+            Standard AD tools
+            scale out DC's
+            Trusts
+            Certificate authorities.
+            Federation
+    Simple AD:
+        Stand alone managed directory
+        basic ad features
+        small <= 500; Large <= 5,000 users.
+        Easier to manage EC2
+        Linux Workloads that need LDAP.
+        Does not support trusts so you can't join on premises AD
+    AD Connect:
+        Used when you want to use your on prem AD its a proxy to your on prem.
+    Cloud Directory:
+        directory based store for developers.
+        uses cases - Org charts, course catalogs, device registries.
+        fully managed service.
+    Amazon Cognito User Pools:
+        managed user dirctory for SaaS applications
+        used for sign up and sign in for web or mobile apps
+        works with social media identities - for example log in with Google
+    Exam Tips:
+        Which are AD compatible vs non ad compatible.
+        AD Compatible:
+            Managed Microsoft AD
+            AD connector
+            Simple AD
+        Non AD compatible:
+            Cloud Directory
+            Cognito User Pools    
+    
+    IAM Policies:
+        ARN - Amazon resource Name:
+        example: arn:partition:service:region:account_id  (will end with a resource type)
+        Real Examples:   
+            arn:aws:iam::123456:user/mark  (when you have multipe colons in a spot and data is omitted its not applicable)
+            arn:aws:s3:::my_awesome_bucket/image.png  (no region or account needed here)
+            arn:aws:ec2:us-east-1:1234567:instance/* (EC2 instance in US East account number all resources..)
+
+
+
+
 
 
 
