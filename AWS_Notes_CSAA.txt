@@ -799,8 +799,61 @@ Advanced IAM:
             arn:aws:iam::123456:user/mark  (when you have multipe colons in a spot and data is omitted its not applicable)
             arn:aws:s3:::my_awesome_bucket/image.png  (no region or account needed here)
             arn:aws:ec2:us-east-1:1234567:instance/* (EC2 instance in US East account number all resources..)
+        IAM Policies:
+            Json document that defines permissions.
+        Identy Policies:
+            attached to a iam group user or role. permissions.
+        Resource policies:
+            attached to resources like EC2.
+            No effect unless attached.
+        Exam Tips:
+            Not explicitly allowed == implicitly denied.  You have to allow the action in the policy or it is denied.
+            Explicity deny > than everything else. 
+            only attached policies have an effect.
+            AWS joins all applicable policies.
+            Under stand AWS managed vs customer managed policy.
+        Permission boundaries:
+            used to delegate admin to other users.
+            contorls the maximum permissions an IAM policy can grant.
+            Use Cases:
+                developers creating roles for Lambda functions
+                Application owners creating roles for EC2 instances.
+                Admins creating ad hoc users.
+                For instance you can give admin access to everything but then lock it down to something more specific by doing a permission boundry. 
+                    Admin Access
+                    --> Apply boundry of DynamoDB full access.. user now only has access to dynmo db access.
+        AWS Resource Access Manager (RAM):
+            allows resource sharing between accounts.
+            Available resources to share:
+                App Mesh 
+                Aurora
+                CodeBuild
+                EC2
+                EC2 Image Builder
+                License ManagerResource Groups
+                Route 53
+            Example you want to share a database between two accounts.  You can share the DB in account 1 via R.A.M and then in account 2 accept the invitation and then you have access to this DB.
+        AWS Single Signon -SSO:
+            Central management of your accounts.  
+            Use existing corporate accounts.
+            Interacts with AD and or Google / office 365
+            if you see SAML 2.0 in a Question think about SSO as an answer.
+Route 53: (DNS)
+    Elastic Load balancers do nothave a pre-defined IPv4 address; you resolve them using a DNS name.
+    Understand the difference between a A record and a C name.  
+        If given a choice always choose an Alias Record over a CNAME.
+    DNS Types:
+        SOA records (start of authority)
+        NS records (Name server that holds the information)
+        A records (Address record)
+        CNAMES (Pointer to another record eg - mobile.cat.com as well as www.cat.com)
+        MX records (Mail)
+        PTR Records (the reverse look an up and get a DNS name)
+    You can buy domains directly from AWS
+    It can take up to 3 days to register depending on the circumstances.
+    
 
-
+            
 
 
 
