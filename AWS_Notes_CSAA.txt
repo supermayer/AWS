@@ -839,7 +839,7 @@ Advanced IAM:
             Interacts with AD and or Google / office 365
             if you see SAML 2.0 in a Question think about SSO as an answer.
 Route 53: (DNS)
-    Elastic Load balancers do nothave a pre-defined IPv4 address; you resolve them using a DNS name.
+    Elastic Load balancers do not have a pre-defined IPv4 address; you resolve them using a DNS name.
     Understand the difference between a A record and a C name.  
         If given a choice always choose an Alias Record over a CNAME.
     DNS Types:
@@ -851,7 +851,29 @@ Route 53: (DNS)
         PTR Records (the reverse look an up and get a DNS name)
     You can buy domains directly from AWS
     It can take up to 3 days to register depending on the circumstances.
-    
+    Routing Policies in Rt53:
+        Simple Routing
+            Only one A record with multiple IP addresses. AWS picks the IP to return to the user randomly.
+        Weighted Routing
+            A record in which you create a percentage of traffic. for instance you set 10 to send 10% of traffic.
+            You create an individual record for each IP you have and it will add up to 100% of Traffic.
+        Latency-based Routing
+            AWS checks the latency to your two instances behind rt 53 and chooses the best latency.
+        Failover Routing
+            For active / standby setups.  Rt53 senses when the active goes down and fails it over to the secondary afterwards.
+        Geolocation Routing
+            Checks where the users are and send them to specific instances. EU users should go to EU / US users go to US. 
+        Geoproximity Routing (traffic flow only)
+            Routes traffic based on the geographic location of your users AND resources. You can also choose to route more traffic or less to a given resource by specifying a value known as bias.
+            To use this you mustuse rt54 traffic flow.
+        Multivalue Answer Routing
+            Same as Simple routing but allows to put health checks on your resources and will only return healthy targets.
+            Simple routing but with health checks.
+        Health Checks:
+            You can set a health check on individual record sets
+            If it fails it will be removed from rt53 until it passes the health check.
+            you can set sns notificaitons to alert you if a health check is failed.
+
 
             
 
