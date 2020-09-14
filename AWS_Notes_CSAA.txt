@@ -873,7 +873,13 @@ Route 53: (DNS)
             You can set a health check on individual record sets
             If it fails it will be removed from rt53 until it passes the health check.
             you can set sns notificaitons to alert you if a health check is failed.
-
+VPC:
+    Think of VPC as a logical data center in AWS
+    Consists of IGWs or virtual private gateways, route tables, network ACLs, Subnets and Security Groups.
+    1 Subnet = 1 availability zones
+    Security Groups are Stateful; Network Access control lists are stateless
+    No Transitive Peering.
+    
 
             
 
