@@ -880,6 +880,14 @@ VPC:
     Security Groups are Stateful; Network Access control lists are stateless
     No Transitive Peering.
     
+    When you create a VPC the following are created automatically:
+        Route Table, Network Access Control List, and a default security group.
+    No subnets are created nor will it create an internet gateway.
+    US-East 1 in your aws account can be different than anothers.
+    Amazon always reserver 5 IP addresses with you subnets. 1 for your router etc..
+    You can only have 1 internet gateway per VPC
+    Security groups can't span VPCs
+    
 
             
 
