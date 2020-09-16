@@ -887,7 +887,28 @@ VPC:
     Amazon always reserver 5 IP addresses with you subnets. 1 for your router etc..
     You can only have 1 internet gateway per VPC
     Security groups can't span VPCs
-    
+    Nat Instance vs Nat Gateways:
+        Nat Instance:
+            Out of date, spin up a instance select nat gateway AMI, disable source destination checks as it sends data on behalf of a private instance.
+            Create a route in the public subnet of 0.0.0.0,  can be bad if you use it for many private instances as its small as a pass through device.
+            NAT instances must be in the public subnet
+            There must be a route connected to the NAT instance.
+            It can be a bottle neck if you a have a small instance as your nat instance.
+            you can do HA with it with Autoscaling with multiple subnets in different AZ and a script to automate failover.
+            HAve to place it in a security group
+        Nat Gateway:
+            Better for performance, create the gateway, assign a elastic IP.  Add a route to your public subnet point it to the nat gateway.
+            Redundant inside the AZ
+            prefferred by the interprise.
+            starts at 5g, scales to 45g
+            no need ot patch
+            no security groups
+            automatically assigned a public IP
+            Remember to update your route tables.
+            No need to disable source / dest checks.
+            If you have multple AZ make sure you create one Nat gateway in each AZ and configure your routing to ensure that the resources use the nat gateway in the same AZ.
+            
+
 
             
 
