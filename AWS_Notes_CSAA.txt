@@ -907,13 +907,74 @@ VPC:
             Remember to update your route tables.
             No need to disable source / dest checks.
             If you have multple AZ make sure you create one Nat gateway in each AZ and configure your routing to ensure that the resources use the nat gateway in the same AZ.
-            
-
-
-            
-
-
-
+    NACLS vs Security Groups:
+        Your VPC come swith a default network ACL and by default it allows all outbound and inbound traffic.
+        You can create custom acls they deny by default.
+        Each subnet in your vpc must be associated with a network ACL. if you dont associate it, it will be placed in the default.
+        You can block IP with NACLS but not with security groups.
+        You can associate a network ACL with multiple subnets however a subnet can be associated with only one network ACL at a time. When you associate a nacl with a subnet the pervious associate is removed.
+        The NACLS are ordered by number and they inherit that structure.  They are evaluated in numerical order.  
+        NACLS are stateless meaning you have to allow traffic both in and out
+    Load Balancer:
+        you need at least 2 public subnets to create a load balancer.
+    VPC Flow Logs:
+       you cannot enable flow logs on peered accounts or cross account
+       you can tag flow logs
+       after youve created a flow log you cannot change its configuration; for example you can't associate a different IAM role with the flow log.
+       Not all IP traffic is not monitored.
+        DNS traffic to Amazon is not logged
+        If you use your own DNS server that traffic will be logged.
+        traffic generated windows license activation is not monitored.
+        Traffic to the meta data ip.. 169.254.169.254
+        DHCP traffic
+        Traffic for the reserved IP for the default VPC.
+    Bastion HOst:
+       Jump Box..
+        A NAT gateway and nat instance are used to provide internet traffic to instances in private subnets.
+        used to safely admin instances.
+        you cannot use a nat gateway as a bastion host
+    Direct Connect:
+        To set up:
+            Create a virutal interface in the direct connect console. This is a public virtual interface.
+            go to the vpc console and then to vpn connections. create a customer gateway.
+            create a virtual private gateway
+            attached the virtual private gateway to the desired vpc.
+            select vpn connections and create a new vpn connection.
+            select the virtual private gateway and the customer gateway
+            once the vpn is availalbe, set up the VPN on the customer gateway or firewall.
+    Global Accelerator:
+        A service in which you create accelerators to improve availability and performance of your applications for local and global users.
+        You are assigned two static IP's or you can bring your own.
+        You can control traffic using traffic dials, this is done within the endpoint group.        
+    VPC Endpoints:
+        Allows you to privately connect your vpc to supported AWS services and vpc endpoint services powered by private link without requiring a internet gateway, NAT device, VPN connection or Direct connect.
+        Endpoints are virtual devices. They are horizontally scaled, redundant, and highly available VPC components that allow communication between your instances and aws services.
+        Basically allows you to contact things like s3 without going out to the internet to get there, you use amazons network.
+        Two Types:
+            Interface Endpoints 
+            Gateway Endpoints:
+                Availabe for S3 and DynamoDB
+    Private Link:
+        If you see a question about peering vpcs to tesn, hundreds or thouses of customer vpcs think of private link   
+        Doesn't require vpc peering; no route tables, nat, igws etc..
+        requires a network load balancer on the service vpc and an ENI on the customer VPC.
+    Transit Gateway:
+        Allows you to have transitive peering between thousands of VPC's and on premises data centers.
+        Works on a hub and spoke model.
+        wokrs on a regional basis but you can have it across multiple regions.
+        You can use it across multiple aws accounts using RAM (Resource access manager)
+        you can use route tables to limit how VPCs can talk to one another.
+        works with direct connect as well as vpn connections
+        supports ip multicast (not supported by  any other aws service.)
+        - If you get a question talking about connected hundreds of VPC's VPC peering and direct connect etc, ip multicast - simplify your network topology.. choose transit gateway.
+    AWS VPN Cloud Hub:
+        Single point of contact, you can connect multiple VPNs at multiple sites so that you can talk to your site in Miami and Dallas for instance.
+        Hub and spoke model.
+        low cost easy to manage. 
+    Network Costs:
+        Always use private IP addresses of public IP addresses to save on costs this utilizes the aws backbone
+        If you want to cut all network costs, group your EC2 instances in the same AZ anduse private IP's.  This will be cost free but you lose your High availablity and what not.
+        
 
 
 
