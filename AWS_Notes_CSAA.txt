@@ -918,17 +918,17 @@ VPC:
     Load Balancer:
         you need at least 2 public subnets to create a load balancer.
     VPC Flow Logs:
-       you cannot enable flow logs on peered accounts or cross account
-       you can tag flow logs
-       after youve created a flow log you cannot change its configuration; for example you can't associate a different IAM role with the flow log.
-       Not all IP traffic is not monitored.
-        DNS traffic to Amazon is not logged
-        If you use your own DNS server that traffic will be logged.
-        traffic generated windows license activation is not monitored.
-        Traffic to the meta data ip.. 169.254.169.254
-        DHCP traffic
-        Traffic for the reserved IP for the default VPC.
-    Bastion HOst:
+        you cannot enable flow logs on peered accounts or cross account
+        you can tag flow logs
+        after youve created a flow log you cannot change its configuration; for example you can't associate a different IAM role with the flow log.
+        Not all IP traffic is not monitored.
+            DNS traffic to Amazon is not logged
+            If you use your own DNS server that traffic will be logged.
+            traffic generated windows license activation is not monitored.
+            Traffic to the meta data ip.. 169.254.169.254
+            DHCP traffic
+            Traffic for the reserved IP for the default VPC.
+    Bastion Host:
        Jump Box..
         A NAT gateway and nat instance are used to provide internet traffic to instances in private subnets.
         used to safely admin instances.
@@ -974,7 +974,79 @@ VPC:
     Network Costs:
         Always use private IP addresses of public IP addresses to save on costs this utilizes the aws backbone
         If you want to cut all network costs, group your EC2 instances in the same AZ anduse private IP's.  This will be cost free but you lose your High availablity and what not.
-        
+HA Architecture: 
+    Elastic Load Balancers:
+        3 different types:
+            Application Load Balancers - 
+            Network Load Balancers
+            Classic Load Balancers
+        504 error means gateway timed out the application or web server behind the LB is not responding.
+        Troubleshoot the application is it the DB or the webserver.
+        If you need the IPv4 address of the end user look for xforwarded for header.
+        Only a DNS name is given on LB's never an IP address.
+        Read the FAQ around loadbalcners.
+    Health Checks:
+        Instances monitored by ELB are reported as in service or out of service.
+        health checks check the instance health by talking to it.
+    Advanced Load balancer theory:
+        Sticky Sessions:
+            Enables your users to stick to the same EC2 Instance. Can be useful if you are storing information locally to that instance.
+        Cross Zone Load Balancing:
+            Enables you to load balance across multiple availability Zones  
+        Path Patterns:
+            Allows you to direct traffic to different EC2 instances based on the URL contained in the request.
+    Auto-Scaling:
+        3 components:
+            Groups:
+                Place instances in specific groups for example web servers or db servers what have you.
+            Config Templates:
+                What size your instances will be and things like that.
+            Scaling Options: (popular exam topic)
+                1. maintain current instance levels at all times.
+                2. Scale Manually
+                3. Scale based on a schedule.
+                4. Scale basedon Demand.
+                5. Use predictive scaling.
+    HA Architecture:
+        Exam Tips:
+        Always design for failure
+        Use Multiple AZ's and Multiple Regions where ever you can.
+        Know the difference between Multi-AZ and read replicas for RDS.  (Multi AZ is for disaster recovery and RDS read replicas are for performance)
+        Know the difference between scaling out and scaling up.  (out is auto scaling groups you add instances, up is when you add like cpu mem to current instances)
+        Read the question and always consider the cost element.
+        Know the different s3 storage classes.  Standard S3 and S3 infrequently access are both HA but the Reduced redundnacy is not nor is single AZ.
+    CloudFormation: (advanced)
+        Way of scripting your cloud environment.
+        Quick start is a bunch of CF templates by Amazon.
+    ElasticBeanstalk: (more for a developers)
+        quickly deploy and manage applications in the aWS cloud without worring about infrastructure You simply upload your applicaiton and beanstalk will handle the details of everything else.
+        provisions capacity.
+        load balancing.
+        scaling and app health monitoring.
+    HA with bastion hosts:
+        Put 2 bastions in their own AZ, the publish a Network load balancer (cannot use app load balancer as its only 443/80 and you need ssh or rdp) with static IPs to access them - costs a bit more as a downside.
+        Deploy a bastion in 1 AZ in a autoscaling group of 1, give it a elastic IP. There will be a health check from the autoscaling group if it fails it will redeploy the bastion. Need a user script to map to the elastic IP, some downtime while it auto provisions. - Cheaper opiton.
+    
+On Premise Strategies with AWS:
+    Know what high level AWS services you can use for the exam.
+    Database Migration Service (DMS)
+        Allows you to move database to and from AWS.
+    Server migration service (SMS)
+        replication of your on premise servers to AWS
+    Application Discovery Service:
+        Helps customers plan a application migration.
+        connects to VMWare and builds a dependency map of your on premise environment.
+    VM imports / Exports:
+        Migrate existing apps on vms into EC2
+        used for DR strategies on AWS or use AWS as a second site.
+        you can also use it to export your AWS vms to your on-premise data center.
+    Download Amazon Linux 2 as an ISO:
+        works with all virtualization technologies.  VMWare, ect...   
+
+
+
+
+
 
 
 
