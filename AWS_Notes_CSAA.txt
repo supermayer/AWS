@@ -1042,10 +1042,92 @@ On Premise Strategies with AWS:
         you can also use it to export your AWS vms to your on-premise data center.
     Download Amazon Linux 2 as an ISO:
         works with all virtualization technologies.  VMWare, ect...   
+Applications:
+    SQS Simple Queue Service:
+        IF the word Decouple is used on the exam its most likely a SQS question.
+        Queues:
+            Standard - Can have duplicates, and can arrive out of order.
+            Fifo - First in first out, no duplicates first come first serve.
+    SQS is pull based - need a ec2 instance polling the queues
+    messages are 256 kb in size or less.
+    Message can be kept in the queue from 1 min to 14 days; the default retention period is 4 days.
+    Visibility Timeout - The time that the message is invisible to the queue.  If your job exceeds the visibility timeout it could be read again. and delivered 2 times.
+        maximum is 12 hours.
+    SQS garuntees that your process will be processed at least once.
+    SQS Long Polling: Turn on long polling if your ec2 instances are continuously polling an empty queue, as this can cost money by turning on long polling if nothing is there then no response is returned.
 
+    Simple Work Flow Service: (AMAZON SWF)
+       Exam tip - Amazon uses this in its warehouse. Includes human interactions. For example you order something and the flow of the tasks will go through and send a human a ticke to get the item. 
+        vs. SQS:
+            SQS has a retention of 14 days with SWF workflow executions can last up to 1 year.
+            Amazon SWF presents a task oriented API whereas amason SQS offers a message oriented API.
+            SWF task is assigned only once and is never duplicated - SQS can have duplication.
+            SWF keepts track of tasks and events in an application.  SQS you have to build that yourself.
+    SWF Actors:
+        Workflow starters - app that starts a workflow. could be a ecom website following the placment of an order or a mobile app searching for bus times.
+        Deciders - Control the flow of activity tasks in a workflow execution. If something has finished or failed in a workflow a decider decides what to do next.
+        Activity Workers - Carry out the activity tasks.
 
+    SNS - Simple notification service.
+        Web service that helps to send notification from the cloud.
+        Push notifications to apple, google, fire os and windows devices as well as android devices in china with baidu cloud push.
+        Can also deliver notifications by SMS or Email to amazon SQS queues or any http endpoint.
+        SNS Benefits - Exam tips.
+            Instantaneous, push-based delivery (no polling)
+            Simple APIs and easy integration with applications.
+            Flexible message delivery over multiple transport protocols
+            inexpensive, pay as you go model with no upfront costs.
+            Web based aws management consoel where you can just do a point and click to set up your SNS notifications.
+        SNS vs SQS (Exam tips)
+            Both are messaging services
+            SNS is push - via text ect.
+            SQS is pull based Pulls.
+    
+    Elastic Transcoder:
+        Media transcoder in the cloud.
+        Upload a media file it will transcode it to other formats for example iphones or tablets or pcs...        
+    
+    API Gateway:  ( A front door into your AWS resources)
+        Can target EC2, Lambda or DynamoDB
+        API Caching: 
+            way to cache your endpoints response.  Helps with latency and reduce calls and increase performance. 
+        Same origin Policy:
+            Web application security concept - basically allows resources in one domain to be accessed by another but only if the web pages have the same origin.
+                CORS - Cross origin resource sharing.  Using this can relax the policy.
+                Exam Tip: Orgin policy cannot be read, you need to turn on CORS. 
+        Low cost and it scales automatically.
+        API gateway can throttle so you can prevent attacks.
+        you can log all your results to cloud watch
+        if you are using javascript / ajax that uses multiple domans ensuare you have CORS turned on.
+        CORS is enforced by your browser or the client.
 
+    Kinesis 101:
+        Platform to send streaming data to.
+        3 Types:
+            Streams:
+                Your clients for instance EC2 or a laptop or mobile device will send data in to Streams, your data is then held in shards, then EC2 can inspect thos shards and send them off to another service such as S3 or a DB.
+                Has specific retetion periods as well.
+            Firehose:
+                Steam data into Lambda which sends it s3 and then can be sent to other applications in AWS.
+                No retention on this.
+            Analytics:
+                This will analyze the data in streams or in firehose.
 
+        Web Identiy Federation and Cognito:
+            allows you to sign in with Google or facebook ect with this.
+            User Pools: - User baed handles things like registration authentication and account recovery.
+                are when you are using your Google or FAcebook username and password, which authenticates you.
+            Identity pools:
+                The actual allowance of getting into the AWS services.
+            Cognito Synchronizations - if you change your password or whatever the cognito service will send a push notification out and all devices will be up to date.
+            Cognito is a identity broker which handles interactions between your applicaitons and the Web ID provider.  You dont need to write your own code to do this.
+        
+        Event Processing Patterns: (Re-Watch this)
+            Exam:
+                Understand pub/sub pattern facilitated by SNS
+                DLQ (dead letter Queue) - what services support DLQ? SNS, SQS, Lambda
+                Fanout Pattern and SNS roll in it. 
+                S3 event notifications which events trigger; which services consume. 
 
 
 
