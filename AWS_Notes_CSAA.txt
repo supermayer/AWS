@@ -1128,6 +1128,70 @@ Applications:
                 DLQ (dead letter Queue) - what services support DLQ? SNS, SQS, Lambda
                 Fanout Pattern and SNS roll in it. 
                 S3 event notifications which events trigger; which services consume. 
+Security:
+    KMS - Key management service.
+        AWS Key Management Service (KMS) is a regional-based key management product, providing encryption, decryption, and re-encryption services. KMS supports many of the encryption features in other AWS products via its ability to generate data encryption keys. KMS is FIPS 140-2 Level 2 compliant.
+        kMS is regional
+        Manges CMK's or customer master keys.
+        ideal for s3 objects, DB passwords and api keys.
+        encrypt and ecrypt data up to 4kb in size.
+        FIPS 140-2 - level 2 - just have to show evidence of tampering - if you see this on the exam answer is probably fips 140-2
+        level 3 is cloud hsm - more stringent security models.
+    CloudHSM: (used for coporate environment where you need more stringent)  This is the level 3 service
+        You managed your own keys in cloud HSM
+        runs within the vpc of your account
+        multi AZ
+        managed service.
+        Exam - if you have regulatory complaince requirements and you need or see FIPS 140-2 Level 3, you probaly need CloudHSM
+    Systems Manager Parameter Store:
+        Management tool to store secrets in AWS.
+    Secrets Manager:
+        Similar to SSM above.
+        allows you to rotate secrets automatically.
+        allows you to generate random secrets.
+    AWS Shield:
+        For mitigating DDOS attacks.
+        STandard:
+            automatically enabled for all at no cost.
+            proticts against common layer 3 and 4 attacks
+                syn floods
+                reflection attacks
+                stopped a 2.3 TBPS ddos attack for 3 days.
+        Advanced:
+            3,000 a month per orgainization
+            enhanced protection for EC2, ELB, Cloudfront, global accellorator, route 53.
+            24x7 access to ddos team.
+            ddos cost protection.
+    Web application firewall: WAF
+        WAF: monitor https requests to clound front, alb, or API gateway.
+        configure filter rules to allow or deny traffic via the below:
+            ip addresses
+            query string parameters
+            SQL query injection
+        You can:
+            Allow all request except the ones you specify
+            black all exect the ones you specify
+            count the requests that match the properties you specify.
+            Request Properties:
+                originating IPoriginatin country
+                reuqest size values in the request headers.
+                strings in the request matchin regular expressions.
+                SQL code (injection)
+                Cross-site scripting (XSS)
+        AWS Firewall Manager:
+            allows you to manage firewall rules across an AWS organization.
+            Manage the below from this tool:
+            WAF RUles:
+                alb
+                api gateway
+                cloud front distributions
+            AWS shield advanced protections:
+                alb
+                ELb Classic
+                EIP
+                Cloudfront distributions
+            Enable security groups for EC2 and ENI's
+
 
 
 
