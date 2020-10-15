@@ -1191,7 +1191,34 @@ Security:
                 EIP
                 Cloudfront distributions
             Enable security groups for EC2 and ENI's
+Serverless:
+    Lambda:
+        scales out (not up) automatically
+        lambda functions are independent, 1 event = functions
+        lambda is serverless
+        know what services are serverless.
+            dynamo db
+            s3
+            aurora serverless
+        lambda funcs can trigger other lambdas
+        architechures can get complicated.. use X-ray to debug what is happening.
+        it cna do things globally, you can use it to back up s3 buckets to other s3 buckets.
+        know your triggers
+        
+    Serverless application model - SAM
+        Cloudformation extension optimized for serverless applications.
+        basically like a terraform type module for cloudformation.
+    Elastic Container Service - ECR:
+        Like kubernetes and docker swarm
+        Fargate - serverless container managmenet system.  No EC2 instances.
+    EKS - Elastic kubernetes service
 
+    ECR - Elastic container registry.
+        AWS's docker registry.
+
+    Know task roles vs ec2 instance roles.
+        Basically task roles in ecs only allows access to specific things like s3 or dynamodb only. 
+        with ec2 instance roles it gives access to all tasks inside of the ec2 instance under its IAM role.
 
 
 
